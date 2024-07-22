@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  @if(studentCourses.length>0){
+  <form>
+    @for (studentCourse of studentCourses; track $index) {
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">
+        {{ studentCourse.courseName }}
+      </label>
+    </div>
+    }
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+  }@else { registration is NOT ACTIVE for old Students.. }
+</div>
