@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterForCoursesService } from './register-for-courses.service';
-import { StudentCourse } from '../models/StudentCourse.model';
 import { FormsModule } from '@angular/forms';
-import { StudentCourses } from '../models/studentCourses';
+import {
+  StudentCourse,
+  StudentCoursesDto,
+} from '../../../models/students.model';
+import { StudentsService } from '../../../Services/students.service';
 
 @Component({
   selector: 'app-register-for-courses',
@@ -12,24 +14,13 @@ import { StudentCourses } from '../models/studentCourses';
   styleUrl: './register-for-courses.component.css',
 })
 export class RegisterForCoursesComponent implements OnInit {
-  constructor(private registerForCoursesService: RegisterForCoursesService) {}
-
-  ngOnInit() {
-    this.getStudentCourses();
-  }
-
   studentCourses: StudentCourse[] = [];
   coursesIds: number[] = [];
 
-  getStudentCourses() {
-    this.registerForCoursesService.getStudentCourses().subscribe({
-      next: (data) => {
-        this.studentCourses = data;
-      },
-      error: (err) => {
-        console.error('saleem api error: ', err);
-      },
-    });
+  constructor(private studentsService: StudentsService) {}
+
+  ngOnInit() {
+    this.getStudentCourses();
   }
 
   onCheckBoxChang(courseId: number, e: Event) {
@@ -44,19 +35,26 @@ export class RegisterForCoursesComponent implements OnInit {
     }
   }
 
+  getStudentCourses() {
+    this.studentsService.getStudentCourses().subscribe({
+      next: (data) => {
+        this.studentCourses = data;
+      },
+      error: (err) => {
+        console.error('saleem api error: ', err);
+      },
+    });
+  }
+
   registerCourses() {
-    const studentCourses = new StudentCourses();
-    studentCourses.studentId = 1;
+    const studentCourses = new StudentCoursesDto();
+    studentCourses.studentId = 3;
     studentCourses.coursesIds = this.coursesIds;
 
-    this.registerForCoursesService
-      .registerStudentCourses(studentCourses)
-      .subscribe({
-        next: (value) => {
-          alert('registerd sucess..');
-        },
-      });
-
-    console.log(studentCourses);
+    this.studentsService.registerStudentCourses(studentCourses).subscribe({
+      next: (value) => {
+        alert('registerd sucess..');
+      },
+    });
   }
 }

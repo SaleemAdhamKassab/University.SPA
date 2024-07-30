@@ -1,0 +1,11 @@
+<div class="protected-endpoint-container">
+  <button (click)="getProtectedData()">Get Protected Data</button>
+  @if(protectedData){
+  <div>
+    <h3>Protected Data:</h3>
+    <pre>{{ protectedData }}</pre>
+  </div>
+  } @if(errorMessage){
+  <div class="error-message">{{ errorMessage }}</div>
+  }
+</div>
