@@ -6,12 +6,18 @@ import { ProtectedTestComponent } from './protected-test/protected-test.componen
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterComponent } from './portals/auth/register/register.component';
 import { LoginComponent } from './portals/auth/login/login.component';
+import { AppComponent } from './app.component';
+import { LoginGuard } from './guards/Login.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'studentsHome', component: StudentsHomeComponent },
+  { path: '', redirectTo: 'studentsHome', pathMatch: 'full' },
+  { path: 'register', component: RegisterComponent, canActivate: [LoginGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+  {
+    path: 'studentsHome',
+    component: StudentsHomeComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'protected',
     component: ProtectedTestComponent,

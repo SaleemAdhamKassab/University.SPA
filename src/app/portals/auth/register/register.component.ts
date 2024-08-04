@@ -47,7 +47,8 @@ export class RegisterComponent {
 
       this.authService.register(registerDto).subscribe({
         next: (response) => {
-          alert('Register successful, please Login...');
+          console.log('registered success ', response);
+          this.authService.AuthUser = response;
         },
         error: (err) => {
           alert(err);

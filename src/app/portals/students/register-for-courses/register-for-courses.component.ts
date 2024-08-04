@@ -5,11 +5,23 @@ import {
   StudentCoursesDto,
 } from '../../../models/students.model';
 import { StudentsService } from '../../../Services/students.service';
-
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-register-for-courses',
   standalone: true,
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './register-for-courses.component.html',
   styleUrl: './register-for-courses.component.css',
 })
@@ -17,44 +29,43 @@ export class RegisterForCoursesComponent implements OnInit {
   studentCourses: StudentCourse[] = [];
   coursesIds: number[] = [];
 
-  constructor(private studentsService: StudentsService) {}
+  displayedColumns: string[] = ['select', 'id', 'name'];
+  dataSource: MatTableDataSource<StudentCourse>;
+  selection = new SelectionModel<StudentCourse>(true, []);
+  constructor(private studentsService: StudentsService) {
+    this.dataSource = new MatTableDataSource<StudentCourse>([]);
+  }
 
   ngOnInit() {
     this.getStudentCourses();
   }
-
-  onCheckBoxChang(courseId: number, e: Event) {
-    const checkBoxElement = e.target as HTMLInputElement;
-    let courseIndex = this.coursesIds.indexOf(courseId);
-
-    if (checkBoxElement.checked) {
-      if (courseIndex == -1) this.coursesIds.push(courseId);
-    } else {
-      if (this.coursesIds.indexOf(courseId) != -1)
-        this.coursesIds.splice(courseIndex, 1);
-    }
-  }
-
   getStudentCourses() {
     this.studentsService.getStudentCourses().subscribe({
       next: (data) => {
         this.studentCourses = data;
+        this.dataSource.data = this.studentCourses;
       },
       error: (err) => {
         console.error('saleem api error: ', err);
       },
     });
   }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
-  registerCourses() {
-    const studentCourses = new StudentCoursesDto();
-    studentCourses.studentId = 3;
-    studentCourses.coursesIds = this.coursesIds;
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
+  }
 
-    this.studentsService.registerStudentCourses(studentCourses).subscribe({
-      next: (value) => {
-        alert('registerd sucess..');
-      },
-    });
+  register() {
+    const selectedIds = this.selection.selected.map(
+      (course) => course.courseId
+    );
+    console.log('Selected course IDs:', selectedIds);
   }
 }

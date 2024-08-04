@@ -1,0 +1,44 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  font-size: 20px; /* Increase font size */
+  color: #fff !important; /* White text color */
+}
+
+.logout-button mat-icon {
+  margin-right: 8px; /* Add some space between the icon and the text */
+  color: #fff; /* White icon color */
+}
+
+mat-toolbar {
+  background: #003459; /* Dark background color */
+  color: #ffffff; /* White text color */
+}
+
+button.mat-button {
+  color: #ffffff; /* White button text color */
+}
+button.mat-button:hover {
+  background: rgba(255, 255, 255, 0.1); /* Slightly darker on hover */
+}
+.color-btn {
+  color: #ffffff !important;
+  font-size: x-large;
+}
+.text {
+  font-size: xx-large;
+}
+/* Responsive design */
+@media (max-width: 600px) {
+  .logout-button {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .logout-button mat-icon {
+    margin-right: 4px; /* Adjust spacing for smaller screens */
+  }
+}

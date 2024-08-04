@@ -5,14 +5,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { LoginDto } from '../../../models/auth.model';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButtonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -39,18 +40,20 @@ export class LoginComponent {
 
       this.authService.login(loginDto).subscribe({
         next: (response) => {
-          alert('Login successful');
-          localStorage.setItem('token', response.token);
-
+          console.log('loggedin success');
+          this.authService.AuthUser = response;
           if (response.roles.indexOf('Student') != -1)
             this.router.navigate(['studentsHome']);
           else if (response.roles.indexOf('Employee') != -1)
             this.router.navigate(['employeesHome']);
         },
         error: (err) => {
-          alert(err);
+          console.log(err);
         },
       });
     }
+  }
+  register() {
+    this.router.navigate(['/register']);
   }
 }

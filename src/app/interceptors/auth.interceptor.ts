@@ -1,32 +1,36 @@
-import { Injectable } from '@angular/core';
 import {
   HttpRequest,
-  HttpHandler,
   HttpEvent,
-  HttpInterceptor,
+  HttpHandlerFn,
+  HttpResponse,
+  HttpErrorResponse,
+  HttpHeaders,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { LoaderService } from '../Services/Loader.service';
+import { AuthService } from '../Services/auth.service';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
-    console.log('Intercepted request:', request);
-
-    if (token) {
-      console.log('Adding token to request:', token);
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } else {
-      console.log('No token found');
-    }
-
-    return next.handle(request);
-  }
+export function AuthIntercept(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> {
+  const loader = inject(LoaderService);
+  const token = inject(AuthService).AuthUser?.token;
+  loader.show();
+  const clonedReq = req.clone({
+    headers: req.headers.set('Authorization', `Bearer ${token}`),
+  });
+  return next(clonedReq).pipe(
+    tap(
+      (event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          loader.hide();
+        }
+      },
+      (err: HttpErrorResponse) => {
+        loader.hide();
+      }
+    )
+  );
 }

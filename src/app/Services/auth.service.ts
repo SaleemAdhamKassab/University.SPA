@@ -11,9 +11,20 @@ export class AuthService {
   apiUrl = `${environment.apiUrl}/Auth`;
 
   constructor(private http: HttpClient) {}
+  public get AuthUser(): IAuthModel | null {
+    const user = localStorage.getItem('user');
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  }
 
-  register(registerDto: RegisterDto): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/register`, registerDto);
+  public set AuthUser(value: IAuthModel | undefined) {
+    localStorage.setItem('user', JSON.stringify(value));
+  }
+
+  register(registerDto: RegisterDto): Observable<IAuthModel> {
+    return this.http.post<IAuthModel>(`${this.apiUrl}/register`, registerDto);
   }
 
   login(loginDto: LoginDto): Observable<IAuthModel> {
@@ -22,5 +33,8 @@ export class AuthService {
 
   getProtectedData(): Observable<any> {
     return this.http.get('https://localhost:7253/api/Test/protected');
+  }
+  logout() {
+    localStorage.removeItem('user');
   }
 }
