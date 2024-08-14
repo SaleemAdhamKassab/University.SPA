@@ -1,0 +1,27 @@
+.logoText {
+  color: darkkhaki !important;
+  margin-top: 12px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px !important;
+  font-weight: 200 !important;
+}
+
+/* nav-bar.component.css */
+:host {
+  display: block;
+}
+
+nav {
+  position: fixed; /* Fixes the navbar position */
+  top: 0; /* Sticks the navbar to the top */
+  left: 0; /* Aligns the navbar to the left */
+  width: 100%; /* Full width of the viewport */
+  background-color: #333; /* Background color of the navbar */
+  z-index: 1000; /* Ensures the navbar stays on top of other elements */
+}
+
+/* Optional: Add some padding or margin to avoid content overlap */
+body {
+  margin: 0;
+  padding: 0;
+}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { LoaderService } from '../../Services/Loader.service';
 import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { LoaderService } from '../../core/services/Loader.service';
 @Component({
   selector: 'app-loader',
   standalone: true,

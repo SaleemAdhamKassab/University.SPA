@@ -1,0 +1,256 @@
+<section class="h-100">
+  <div class="container h-100">
+    <div class="row y-5 d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <h5 class="centered-div">Student Registration Form</h5>
+        <div class="card card-registration my-4">
+          <div class="row g-0">
+            <div class="col-xl-8">
+              <div class="card-body p-md-5 text-black">
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                  <div class="row">
+                    <!-- first name -->
+                    <div class="col-md-4 mb-4">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >First name</label
+                        >
+                        <input
+                          id="firstName"
+                          formControlName="firstName"
+                          type="text"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+
+                      @if( registerForm.get('firstName')?.invalid &&
+                      registerForm.get('firstName')?.touched ){
+                      <div class="error-message">First Name is required</div>
+                      }
+                    </div>
+
+                    <!-- Father's name -->
+                    <div class="col-md-4 mb-4">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >Father's name</label
+                        >
+                        <input
+                          id="fatherName"
+                          formControlName="fatherName"
+                          type="text"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+
+                      @if( registerForm.get('fatherName')?.invalid &&
+                      registerForm.get('fatherName')?.touched ){
+                      <div class="error-message">Father Name is required</div>
+                      }
+                    </div>
+
+                    <!-- last name -->
+                    <div class="col-md-4 mb-4">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >Last name</label
+                        >
+                        <input
+                          id="lastName"
+                          formControlName="lastName"
+                          type="text"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+
+                      @if( registerForm.get('lastName')?.invalid &&
+                      registerForm.get('lastName')?.touched ){
+                      <div class="error-message">Last Name is required</div>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- email -->
+                    <div class="col-md-6 mb-4">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >Email</label
+                        >
+                        <input
+                          id="email"
+                          formControlName="email"
+                          type="email"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+
+                      @if( registerForm.get('email')?.invalid &&
+                      registerForm.get('email')?.touched ){
+                      <div class="error-message">Email is required</div>
+                      }
+                    </div>
+
+                    <!-- phone -->
+                    <div class="col-md-6 mb-4">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >Phone</label
+                        >
+                        <input
+                          id="phone"
+                          formControlName="phone"
+                          type="text"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+
+                      @if( registerForm.get('phone')?.invalid &&
+                      registerForm.get('phone')?.touched ){
+                      <div class="error-message">Phone is required</div>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- password -->
+                    <div class="col-md-6 mb-4">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >Password</label
+                        >
+                        <input
+                          id="password"
+                          formControlName="password"
+                          type="password"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+                      @if( registerForm.get('password')?.invalid &&
+                      registerForm.get('password')?.touched ){
+                      <div class="error-message">Password is required</div>
+                      }
+                    </div>
+
+                    <!-- confirm password -->
+                    <div class="col-md-6 mb-6">
+                      <div data-mdb-input-init class="form-outline">
+                        <label class="form-label" for="form3Example1m"
+                          >Confirm Password</label
+                        >
+                        <input
+                          id="confirmPassword"
+                          type="password"
+                          class="form-control form-control-lg"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-1">
+                    <div class="col-md-6">
+                      <label class="form-label" for="form3Example9"
+                        >Date of Birth</label
+                      >
+                      <input
+                        type="date"
+                        formControlName="dateOfBirth"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-6">
+                      <label class="form-label" for="male">Gender</label>
+                      <div
+                        class="d-md-flex justify-content-start align-items-center mb-1 py-2"
+                      >
+                        <div class="form-check form-check-inline mb-0 me-4">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            formControlName="gender"
+                            id="male"
+                            value="male"
+                          />
+                          <label class="form-check-label" for="male"
+                            >Male</label
+                          >
+                        </div>
+                        <div class="form-check form-check-inline mb-0 me-4">
+                          <input
+                            id="female"
+                            class="form-check-input"
+                            type="radio"
+                            formControlName="gender"
+                            value="female"
+                          />
+                          <label class="form-check-label" for="female"
+                            >Female</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- Address -->
+                    <label class="form-label" for="address">Address</label>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <textarea
+                        type="text"
+                        id="address"
+                        formControlName="address"
+                        class="form-control form-control-lg"
+                        rows="2"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <!-- buttons -->
+                  <div class="row">
+                    <div class="d-flex justify-content-end pt-3">
+                      <button
+                        type="button"
+                        data-mdb-button-init
+                        data-mdb-ripple-init
+                        class="btn btn-danger btn-lg col-md-6"
+                        (click)="resetRegisterForm()"
+                      >
+                        Reset all
+                      </button>
+
+                      <button
+                        type="submit"
+                        data-mdb-button-init
+                        data-mdb-ripple-init
+                        class="btn btn-warning btn-lg ms-2 col-md-6"
+                      >
+                        Join us
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-xl-4 d-none d-xl-block">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
+                alt="Sample photo"
+                class="img-fluid"
+                style="
+                  border-top-left-radius: 0.25rem;
+                  border-bottom-left-radius: 0.25rem;
+                "
+              />
+              <div>
+                Already have an account?
+                <a class="linka" (click)="goToLogin()">Sign in</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

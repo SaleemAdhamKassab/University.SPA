@@ -1,0 +1,75 @@
+<div class="table-container">
+  <!-- Search Field -->
+  @if(searchInput){
+  <mat-form-field style="width: 100%">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
+  </mat-form-field>
+  }
+
+  <!-- Table -->
+  <table class="table table-hover" mat-table [dataSource]="dataSource" matSort>
+    <!-- Checkbox Column for Select All -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="toggleAllRows($event.checked)"
+          [checked]="isAllSelected()"
+          [indeterminate]="isSomeSelected()"
+        >
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (change)="onCheckboxChange(row, $event.checked)"
+          [checked]="isSelected(row)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Dynamic Columns with Aliases -->
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+      @if(sortingColumns){
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <b>{{ columnAliases[column.key] }}</b>
+      </mat-header-cell>
+      }@else {
+      <mat-header-cell *matHeaderCellDef>
+        <b>{{ columnAliases[column.key] }}</b>
+      </mat-header-cell>
+      }
+      <mat-cell *matCellDef="let element"> {{ element[column.key] }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+
+  <div class="row pt-3">
+    <div class="col-lg-6">
+      <!-- Conditionally display the button -->
+      <div style="padding: 10px">
+        <button
+          style="width: 15%"
+          mat-raised-button
+          *ngIf="showSendButton"
+          (click)="sendSelectedRows()"
+        >
+          {{ sendButtonLabel }}
+        </button>
+      </div>
+    </div>
+    @if(pagePaginator){
+    <div class="col-lg-6">
+      <!-- Paginator -->
+      <mat-paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[10, 25, 50]"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+    }
+  </div>
+</div>

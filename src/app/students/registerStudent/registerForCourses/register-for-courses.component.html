@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="centered-div">
+    <h5>Register for Courses</h5>
+  </div>
+  <app-data-table
+    [dataSource]="dataSource"
+    [columns]="columns"
+    [showSendButton]="true"
+    [sendButtonLabel]="'Register'"
+    [searchInput]="false"
+    [pagePaginator]="false"
+    [sortingColumns]="false"
+    [selectRows]="true"
+    (selectedRowsChange)="handleSelectedRows($event)"
+    (filterChange)="applyFilter($event)"
+    (sortChange)="onSortChange($event)"
+    (pageChange)="onPageChange($event)"
+  >
+  </app-data-table>
+</div>

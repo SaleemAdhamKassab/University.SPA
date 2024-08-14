@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-toast {
+  background-color: #323232; /* Customize the background color */
+  color: #ffffff; /* Customize the text color */
+}
+
+.mat-snack-bar-action {
+  color: #ffffff; /* Customize the action button color */
+}
+
+.linka {
+  color: blue; /* Text color of the link */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.centered-div {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}

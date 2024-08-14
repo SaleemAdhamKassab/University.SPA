@@ -1,27 +1,26 @@
 import { Routes } from '@angular/router';
-import { StudentsHomeComponent } from './portals/students/StudentsHome/students-home/students-home.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { HomeComponent } from './home/home.component';
-import { ProtectedTestComponent } from './protected-test/protected-test.component';
-import { AuthGuard } from './guards/auth.guard';
-import { RegisterComponent } from './portals/auth/register/register.component';
-import { LoginComponent } from './portals/auth/login/login.component';
-import { AppComponent } from './app.component';
-import { LoginGuard } from './guards/Login.guard';
+
+import { RegisterComponent } from './students/auth/register/register.component';
+import { LoginComponent } from './students/auth/login/login.component';
+import { RegisterForCoursesComponent } from './students/registerStudent/registerForCourses/register-for-courses.component';
+import { HomeComponent } from './shared/components/home/home.component';
+import { LoginGuard } from './core/guards/Login.guard';
+import { NotFoundComponent } from './shared/components/notFound/not-found.component';
+import { StudentPaymentsComponent } from './students/registerStudent/student-payments/student-payments.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'studentsHome', pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent, canActivate: [LoginGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: '', component: HomeComponent },
+  { path: 'register', component: RegisterComponent },
   {
-    path: 'studentsHome',
-    component: StudentsHomeComponent,
-    canActivate: [AuthGuard],
+    path: 'registrationForOldStudents',
+    component: RegisterForCoursesComponent,
+    canActivate: [LoginGuard],
   },
   {
-    path: 'protected',
-    component: ProtectedTestComponent,
-    canActivate: [AuthGuard],
+    path: 'studentPayments',
+    component: StudentPaymentsComponent,
+    canActivate: [LoginGuard],
   },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent },
 ];
