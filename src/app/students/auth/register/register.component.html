@@ -207,6 +207,42 @@
                     </div>
                   </div>
 
+                  <!-- upload files -->
+                  <!-- personal photo -->
+                  <div>
+                    <label for="personalPhoto">Personal Photo</label>
+                    <input
+                      id="personalPhoto"
+                      type="file"
+                      class="form-control"
+                      (change)="onPersonalPhotoSelected($event)"
+                    />
+                    @if(registerForm.get('personalPhoto')?.invalid &&
+                    registerForm.get('personalPhoto')?.touched){
+                    <div>Personal Photo is required</div>
+                    }
+                  </div>
+                  <br />
+                  <!-- secondarySchoolCertificatePhoto -->
+                  <div>
+                    <label for="secondarySchoolCertificatePhoto"
+                      >Secondary School Certificate Photo</label
+                    >
+                    <input
+                      id="secondarySchoolCertificatePhoto"
+                      type="file"
+                      class="form-control"
+                      (change)="
+                        onSecondarySchoolCertificatePhotoSelected($event)
+                      "
+                    />
+                    @if(registerForm.get('secondarySchoolCertificatePhoto')?.invalid
+                    &&
+                    registerForm.get('secondarySchoolCertificatePhoto')?.touched){
+                    <div>Secondary School Certificate Photo is required</div>
+                    }
+                  </div>
+
                   <!-- buttons -->
                   <div class="row">
                     <div class="d-flex justify-content-end pt-3">
@@ -233,7 +269,7 @@
                 </form>
               </div>
             </div>
-            <div class="col-xl-4 d-none d-xl-block">
+            <div class="col-xl-4">
               <img
                 src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
                 alt="Sample photo"
@@ -241,6 +277,8 @@
                 style="
                   border-top-left-radius: 0.25rem;
                   border-bottom-left-radius: 0.25rem;
+                  height: 800px;
+                  width: 100%;
                 "
               />
               <div>

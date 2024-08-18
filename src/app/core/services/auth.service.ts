@@ -21,25 +21,23 @@ export class AuthService {
     return null;
   }
 
-  register(registerDto: FormGroup): Observable<IAuthModel> {
-    return this.http.post<IAuthModel>(`${this.apiUrl}/register`, registerDto);
+  register(registerFormData: FormData): Observable<IAuthModel> {
+    return this.http.post<IAuthModel>(
+      `${this.apiUrl}/register`,
+      registerFormData
+    );
   }
 
   login(loginDto: FormGroup): Observable<IAuthModel> {
     return this.http.post<IAuthModel>(`${this.apiUrl}/login`, loginDto);
   }
 
-  getLoggedUser(): string | null {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      try {
-        const tokenData = JSON.parse(storedToken);
-        return tokenData.email;
-      } catch (e) {
-        return null;
-      }
+  getUserToken(): string {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return token;
     }
-    return null;
+    return 'N/A';
   }
 
   isLoggedIn(): boolean {

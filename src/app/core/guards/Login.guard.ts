@@ -16,7 +16,7 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const user = this.authService.getLoggedUser();
+    const user = this.authService.getUserToken();
     if (!user) {
       this.router.navigate(['login']);
       return false;

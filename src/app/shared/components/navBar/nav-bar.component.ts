@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,10 +19,10 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
-  get user() {
-    return this.authService.AuthUser;
+  ngOnInit() {
+    this.setProfilePhoto();
   }
 
   isLoggedIn(): boolean {
@@ -31,13 +31,17 @@ export class NavBarComponent {
 
   logout() {
     this.authService.logout();
+    this.setProfilePhoto();
   }
 
-  username(): string | undefined {
-    const userEmail = this.authService.getLoggedUser();
-    if (userEmail) {
-      return userEmail.substring(0, userEmail.indexOf('@'));
-    }
-    return;
+  username(): string {
+    const token = this.authService.getUserToken();
+    const email = JSON.parse(token).email;
+    return email.substring(0, email.indexOf('@'));
+  }
+
+  setProfilePhoto() {
+    const token = this.authService.getUserToken();
+    return JSON.parse(token).personalPhotoPath;
   }
 }
